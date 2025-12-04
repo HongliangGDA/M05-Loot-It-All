@@ -1,22 +1,58 @@
-[gd_scene load_steps=5 format=3 uid="uid://dmv50krf4bo5r"]
+[gd_scene load_steps=7 format=3 uid="uid://dmv50krf4bo5r"]
 
 [ext_resource type="Texture2D" uid="uid://bniyrxn3r2v8h" path="res://assets/ship.png" id="3_pdppw"]
 [ext_resource type="Script" uid="uid://bwkr2t4ku15qq" path="res://lessons/ship.gd" id="4_p1sls"]
 [ext_resource type="PackedScene" uid="uid://dgf54k70yiiff" path="res://assets/ship_visual_effects/main_thruster/main_thruster.tscn" id="5_q7c3l"]
 [ext_resource type="PackedScene" uid="uid://bklom8bhpxg4h" path="res://assets/ship_visual_effects/side_thruster/side_thruster.tscn" id="6_1updt"]
 
-[node name="Sprite2D" type="Sprite2D"]
-texture = ExtResource("3_pdppw")
+[sub_resource type="CircleShape2D" id="CircleShape2D_5xifn"]
+radius = 42.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5xifn"]
+bg_color = Color(0.62352943, 0.8666667, 0.31764707, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
+[node name="Ship" type="Area2D"]
 script = ExtResource("4_p1sls")
 
-[node name="MainThruster" parent="." instance=ExtResource("5_q7c3l")]
-position = Vector2(-33, 0)
-points = PackedVector2Array(0, 0, 33.3333, 0, 66.6667, 0)
+[node name="Sprite2D" type="Sprite2D" parent="."]
+scale = Vector2(1.0062366, 0.9937629)
+texture = ExtResource("3_pdppw")
 
-[node name="SideThruster" parent="." instance=ExtResource("6_1updt")]
-position = Vector2(-44, -21)
-rotation = 1.74987
+[node name="MainThruster" parent="Sprite2D" instance=ExtResource("5_q7c3l")]
+position = Vector2(-28.820278, -1.4323635)
 
-[node name="SideThruster2" parent="." instance=ExtResource("6_1updt")]
-position = Vector2(-45, 19)
-rotation = 1.36715
+[node name="SideThruster" parent="Sprite2D" instance=ExtResource("6_1updt")]
+position = Vector2(-43.72728, -20.551598)
+scale = Vector2(0.25000003, 0.25000003)
+
+[node name="SideThruster2" parent="Sprite2D" instance=ExtResource("6_1updt")]
+position = Vector2(-44.72108, 20.70575)
+scale = Vector2(0.28707603, 0.25657466)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-2, 0)
+shape = SubResource("CircleShape2D_5xifn")
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+metadata/_edit_use_anchors_ = true
+
+[node name="HealthBar" type="ProgressBar" parent="UI"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.075
+anchor_right = 0.075
+offset_left = -64.0
+offset_top = -46.0
+offset_right = 64.0
+offset_bottom = -40.0
+theme_override_styles/fill = SubResource("StyleBoxFlat_5xifn")
+value = 50.0
+show_percentage = false

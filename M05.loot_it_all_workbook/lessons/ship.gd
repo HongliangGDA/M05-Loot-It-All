@@ -1,9 +1,12 @@
-extends Sprite2D
-
+extends Area2D
 
 var max_speed := 1200.0
 var velocity := Vector2(0, 0)
 var steering_factor := 3.0
+
+var health := 10
+
+
 
 
 func _process(delta: float) -> void:
@@ -20,4 +23,4 @@ func _process(delta: float) -> void:
 	position += velocity * delta
 
 	if velocity.length() > 0.0:
-		rotation = velocity.angle()
+		get_node("Sprite2D").rotation = velocity.angle()
